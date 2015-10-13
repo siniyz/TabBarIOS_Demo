@@ -2,34 +2,58 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-
+'use strict'
 
 var React = require('react-native');
+
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
+  TabBarIOS
 } = React;
 
-var TabBarDemo = React.createClass({
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+class TabBarDemo extends React.Component{
+  constructor(props) {
+    super(props)
+    this.state={
+      selectedTab: 'history'
+    }
   }
-});
+  render() {
+    return (
+      <TabBarIOS>
+        <TabBarIOS.Item 
+          title="history"
+          selected={this.state.selectedTab === 'history'}
+          systemIcon="history"
+          onPress={() => {
+            this.setState({
+              selectedTab: 'history'
+            })
+          }}>
+          <View style={styles.tabContent}>
+            <Text style={styles.tabText}> Tab one </Text>
+          </View>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item 
+          title="bookmarks"
+          selected={this.state.selectedTab === 'bookmarks'}
+          systemIcon="bookmarks"
+          onPress={() => {
+            this.setState({
+              selectedTab: 'bookmarks'
+            })
+          }}>
+          <View style={styles.tabContent}>
+            <Text style={styles.tabText}> Tab two </Text>
+          </View>
+        </TabBarIOS.Item>
+      </TabBarIOS>
+    )
+  }
+}
 
 var styles = StyleSheet.create({
   container: {
@@ -38,16 +62,14 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  tabContent: {
+    flex: 1,
+    alignItems: 'center'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  tabText: {
+    margin: 50,
+    fontSize: 45
+  }
 });
 
 AppRegistry.registerComponent('TabBarDemo', () => TabBarDemo);
